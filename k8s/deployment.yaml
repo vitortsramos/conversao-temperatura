@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: meudeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: vitortsramos/conversao-temperatura:v2
+        ports: 
+        - containerPort: 80
+---
+apiVerson: v1
+kind: Service
+metadata:
+  name: servicee-web
+spec:
+  selector:
+    app: web
+  ports:
+  - port: 80
+    NodePort: 30000
+  type: NodePort
